@@ -115,14 +115,13 @@ export function TrustBar() {
     <section className="section-light border-b border-border-light">
       <div className="container-avelion grid gap-6 py-8 md:grid-cols-2 lg:grid-cols-4">
         {items.map((item) => (
-          <div key={item.label}>
-            <p className="text-sm font-medium text-text-primary">
-              <span className="mr-2 text-silver-primary" aria-hidden="true">
-                ▸
-              </span>
-              {item.label}
-            </p>
-            <p className="mt-2 pl-5 text-xs leading-relaxed text-text-secondary">{item.detail}</p>
+          <div key={item.label} className="grid grid-cols-[auto_1fr] gap-x-2">
+            <span className="text-sm text-silver-primary" aria-hidden="true">
+              ▸
+            </span>
+            <p className="text-sm font-medium text-text-primary">{item.label}</p>
+            <span aria-hidden="true" />
+            <p className="mt-2 text-xs leading-relaxed text-text-secondary">{item.detail}</p>
           </div>
         ))}
       </div>
