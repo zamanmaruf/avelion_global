@@ -1,0 +1,344 @@
+@import "tailwindcss";
+
+@theme {
+  /* Dark brand surfaces — calibrated to logo (#03060f) */
+  --color-background-primary: #03060f;
+  --color-background-secondary: #070d1a;
+  --color-surface-primary: #121c2e;
+  --color-surface-secondary: #172438;
+  --color-navy: #0a1628;
+  --color-navy-deep: #06101c;
+
+  /* Light canvases — warm stone (balanced against near-black dark) */
+  --color-canvas-light: #ddd6cb;
+  --color-canvas-muted: #d2cabd;
+  --color-card-light: #e8e2d7;
+  --color-ink: #1a1f28;
+  --color-ink-muted: #4f5863;
+  --color-border-light: rgba(21, 26, 34, 0.14);
+
+  /* Champagne / warm silver accents (logo-aligned) */
+  --color-silver-primary: #c5b7a3;
+  --color-silver-light: #ebe4d8;
+  --color-silver-dark: #8a8378;
+  --color-champagne: #c5b7a3;
+  --color-champagne-deep: #9a8b76;
+
+  --color-text-primary: #f5f3ee;
+  --color-text-secondary: #b9bec6;
+  --color-border-subtle: rgba(215, 215, 210, 0.16);
+  --color-accent: #c5b7a3;
+  --color-accent-soft: #ebe4d8;
+  --color-focus: #d4cfc4;
+
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-instrument), ui-serif, Georgia, serif;
+
+  --shadow-soft: 0 12px 40px rgba(0, 0, 0, 0.28);
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.22);
+  --shadow-card-light: 0 8px 28px rgba(21, 26, 34, 0.08);
+
+  --animate-fade-up: fade-up 0.7s ease-out both;
+  --animate-fade-in: fade-in 0.5s ease-out both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border-subtle);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    background: var(--color-background-primary);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background: rgba(197, 183, 163, 0.28);
+    color: var(--color-text-primary);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .container-avelion {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 72rem;
+    padding-inline: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-avelion {
+      padding-inline: 2rem;
+    }
+  }
+
+  /* Cards: slightly lighter than surrounding dark page */
+  .surface-panel {
+    background: linear-gradient(
+      180deg,
+      rgba(18, 28, 46, 0.98) 0%,
+      rgba(14, 23, 38, 0.98) 100%
+    );
+    border: 1px solid var(--color-border-subtle);
+    box-shadow: var(--shadow-card);
+  }
+
+  .section-pad {
+    padding-block: 4.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section-pad {
+      padding-block: 6.5rem;
+    }
+  }
+
+  /* —— Section surfaces (60/40 dark–light rhythm) —— */
+
+  .section-dark {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--color-background-primary);
+    background-image:
+      linear-gradient(
+        160deg,
+        rgba(3, 6, 15, 0.52) 0%,
+        rgba(3, 6, 15, 0.68) 45%,
+        rgba(3, 6, 15, 0.78) 100%
+      ),
+      url("/images/section-dark-bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: var(--color-text-secondary);
+  }
+
+  .section-dark > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-navy {
+    background-color: var(--color-navy);
+    color: var(--color-text-secondary);
+  }
+
+  .section-navy .surface-panel {
+    background: linear-gradient(
+      180deg,
+      rgba(22, 34, 54, 0.98) 0%,
+      rgba(16, 26, 42, 0.98) 100%
+    );
+  }
+
+  .section-light {
+    background-color: var(--color-canvas-light);
+    color: var(--color-ink-muted);
+  }
+
+  .section-light-muted {
+    background-color: var(--color-canvas-muted);
+    color: var(--color-ink-muted);
+  }
+
+  .section-light .text-text-primary,
+  .section-light-muted .text-text-primary {
+    color: var(--color-ink);
+  }
+
+  .section-light .text-text-secondary,
+  .section-light-muted .text-text-secondary {
+    color: var(--color-ink-muted);
+  }
+
+  .section-light .text-silver-primary,
+  .section-light-muted .text-silver-primary {
+    color: var(--color-champagne-deep);
+  }
+
+  .section-light .text-silver-light,
+  .section-light-muted .text-silver-light,
+  .section-light .group:hover .group-hover\:text-silver-light,
+  .section-light-muted .group:hover .group-hover\:text-silver-light {
+    color: var(--color-champagne-deep);
+  }
+
+  .section-light .text-silver-dark,
+  .section-light-muted .text-silver-dark {
+    color: #7a7368;
+  }
+
+  .section-light .border-border-subtle,
+  .section-light-muted .border-border-subtle,
+  .section-light .divide-border-subtle > :not([hidden]) ~ :not([hidden]),
+  .section-light-muted .divide-border-subtle > :not([hidden]) ~ :not([hidden]) {
+    border-color: var(--color-border-light);
+  }
+
+  .section-light .surface-panel,
+  .section-light-muted .surface-panel {
+    background: var(--color-card-light);
+    border-color: var(--color-border-light);
+    box-shadow: var(--shadow-card-light);
+  }
+
+  .section-light .hover\:border-silver-dark\/40:hover,
+  .section-light-muted .hover\:border-silver-dark\/40:hover,
+  .section-light .hover\:border-silver-dark\/50:hover,
+  .section-light-muted .hover\:border-silver-dark\/50:hover {
+    border-color: rgba(154, 139, 118, 0.45);
+  }
+
+  .section-light a.group:hover h3,
+  .section-light-muted a.group:hover h3 {
+    color: var(--color-champagne-deep);
+  }
+
+  .section-light a.text-silver-primary:hover,
+  .section-light-muted a.text-silver-primary:hover {
+    color: var(--color-ink);
+  }
+
+  .section-light .divide-y > :not([hidden]) ~ :not([hidden]),
+  .section-light-muted .divide-y > :not([hidden]) ~ :not([hidden]) {
+    border-color: var(--color-border-light);
+  }
+
+  .section-light .border-y,
+  .section-light-muted .border-y {
+    border-color: var(--color-border-light);
+  }
+
+  .section-light input,
+  .section-light select,
+  .section-light textarea,
+  .section-light-muted input,
+  .section-light-muted select,
+  .section-light-muted textarea {
+    background-color: var(--color-card-light);
+    color: var(--color-ink);
+    border-color: var(--color-border-light);
+  }
+
+  .section-light input::placeholder,
+  .section-light textarea::placeholder,
+  .section-light-muted input::placeholder,
+  .section-light-muted textarea::placeholder {
+    color: #7a7368;
+  }
+
+  .section-light .field-error,
+  .section-light-muted .field-error {
+    color: #b91c1c;
+  }
+
+  .prose-avelion {
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+  }
+
+  .prose-avelion h2,
+  .prose-avelion h3 {
+    color: var(--color-text-primary);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  .prose-avelion p,
+  .prose-avelion ul,
+  .prose-avelion ol {
+    margin-bottom: 1rem;
+  }
+
+  .prose-avelion a {
+    color: var(--color-silver-light);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .prose-avelion ul {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+
+  .prose-avelion ol {
+    list-style: decimal;
+    padding-left: 1.25rem;
+  }
+
+  .section-light .prose-avelion,
+  .section-light-muted .prose-avelion {
+    color: var(--color-ink-muted);
+  }
+
+  .section-light .prose-avelion h2,
+  .section-light .prose-avelion h3,
+  .section-light-muted .prose-avelion h2,
+  .section-light-muted .prose-avelion h3 {
+    color: var(--color-ink);
+  }
+
+  .section-light .prose-avelion a,
+  .section-light-muted .prose-avelion a {
+    color: var(--color-champagne-deep);
+  }
+}
